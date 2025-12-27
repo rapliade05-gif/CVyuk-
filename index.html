@@ -36,13 +36,13 @@ header button{
 /* HERO */
 .hero{
   background:linear-gradient(135deg,#4f5dff,#7c86ff);
-  color:#fff;padding:70px 20px
+  color:#fff;padding:60px 20px
 }
 .hero-inner{
   max-width:1100px;margin:auto;
   display:grid;grid-template-columns:1.2fr 1fr;gap:30px
 }
-.hero h1{font-size:36px;margin:0 0 12px}
+.hero h1{font-size:34px;margin:0 0 12px}
 .hero-box{
   background:#ffffff25;padding:20px;border-radius:14px
 }
@@ -192,16 +192,16 @@ footer{
     </div>
 
     <label>Nama Pengirim</label>
-    <input required>
+    <input id="namaPengirim" required>
 
     <label>Nomor E-Wallet Pengirim</label>
-    <input required>
+    <input id="noPengirim" required>
 
     <label>Nama Penerima</label>
-    <input required>
+    <input id="namaPenerima" required>
 
     <label>Nomor E-Wallet / Bank Penerima</label>
-    <input required>
+    <input id="noPenerima" required>
 
     <button class="submit">Kirim Transaksi</button>
   </form>
@@ -263,35 +263,48 @@ function hitungSaldo(){
 
 function sendWA(e){
   e.preventDefault();
-  const i=form.querySelectorAll("input");
+
   const amount=parseInt(document.getElementById("amount").value);
-  const fee=document.getElementById("feeText").innerText;
-  const receive=document.getElementById("receiveText").innerText;
+  const feeText=document.getElementById("feeText").innerText;
+  const receiveText=document.getElementById("receiveText").innerText;
+
+  if(!amount || receiveText=="-"){
+    alert("Masukkan jumlah convert yang valid");
+    return;
+  }
 
   const data={
     t:new Date().toLocaleString(),
     w:selectedWallet,
     a:amount,
-    r:receive,
+    r:receiveText,
     s:"Pending"
   };
 
-  const h=JSON.parse(localStorage.getItem("cvyuk")||"[]");
-  h.unshift(data);
-  localStorage.setItem("cvyuk",JSON.stringify(h));
+  const history=JSON.parse(localStorage.getItem("cvyuk")||"[]");
+  history.unshift(data);
+  localStorage.setItem("cvyuk",JSON.stringify(history));
   render();
 
   const msg=`Halo Admin CVyuk!
 
 E-Wallet: ${data.w}
 Nominal Convert: Rp ${amount.toLocaleString("id-ID")}
-Fee: ${fee}
-Saldo Diterima: ${receive}
+Fee: ${feeText}
+Saldo Diterima: ${receiveText}
+
+Nama Pengirim: ${document.getElementById("namaPengirim").value}
+No Pengirim: ${document.getElementById("noPengirim").value}
+Nama Penerima: ${document.getElementById("namaPenerima").value}
+No Tujuan: ${document.getElementById("noPenerima").value}
 
 Bukti transaksi akan saya kirim.`;
 
-  window.open(`https://wa.me/${ADMIN_WA}?text=${encodeURIComponent(msg)}`);
+  window.open(`https://wa.me/${ADMIN_WA}?text=${encodeURIComponent(msg)}`,"_blank");
+
   form.reset();
+  document.getElementById("feeText").innerText="-";
+  document.getElementById("receiveText").innerText="-";
 }
 
 function render(){
