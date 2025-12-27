@@ -91,8 +91,15 @@ th { color: var(--muted); font-weight: 600; }
   </style>
 </head>
 <body>
-  <header>CVyuk!</header>
+  <header>CVyuk! <button onclick="openAdmin()" style="float:right;background:#eee;border:none;border-radius:8px;padding:6px 12px;cursor:pointer">Admin</button></header>
   <main>
+    <div class="card" id="adminLogin" style="display:none;max-width:400px;margin:auto">
+      <h2>Login Admin</h2>
+      <label>PIN Admin</label>
+      <input type="password" id="adminPin" placeholder="Masukkan PIN" />
+      <button onclick="loginAdmin()">Login</button>
+      <p id="adminError" style="color:red;display:none">PIN salah</p>
+    </div>
     <div class="card">
       <h2>Pilih E-Wallet</h2>
       <div class="ewallet-list">
@@ -112,7 +119,7 @@ th { color: var(--muted); font-weight: 600; }
           <img src="https://upload.wikimedia.org/wikipedia/commons/f/fe/ShopeePay_logo.svg" />
           <div>ShopeePay</div>
         </div>
-      </div><form id="form">
+      </div><form id="form" onsubmit="sendWA(event)">
     <h2 id="walletTitle"></h2>
     <div class="qris">
       <p>Scan QRIS berikut:</p>
@@ -144,29 +151,116 @@ th { color: var(--muted); font-weight: 600; }
   </form>
 </div>
 
-<div class="card">
-  <h2>Histori Transaksi</h2>
+<div class="card" id="adminPanel" style="display:none">
+  <h2>Histori Transaksi (Admin)</h2>
+  <button onclick="clearHistory()" style="margin-bottom:12px;background:#ff6b6b">Hapus Semua</button>
   <table>
     <thead>
       <tr>
         <th>Tanggal</th>
         <th>Ewallet</th>
         <th>Pengirim</th>
-        <th>Penerima</th>
+        <th>Penerima</th><th>Status</th>
       </tr>
     </thead>
-    <tbody id="history">
-      <tr><td colspan="4" style="color:#aaa">Belum ada transaksi</td></tr>
-    </tbody>
+    <tbody id="history"></tbody>
   </table>
 </div>
 
   </main>  <script>
     const form = document.getElementById('form');
     const title = document.getElementById('walletTitle');
+    const historyTable = document.getElementById('history');
+    let selectedWallet = '';
+
     function selectWallet(name) {
+      selectedWallet = name;
       title.innerText = 'Form Convert ' + name;
       form.classList.add('active');
     }
+
+    function sendWA(e) {
+      e.preventDefault();
+      const inputs = form.querySelectorAll('input');
+      const data = {
+        wallet: selectedWallet,
+        namaPengirim: inputs[0].value,
+        noPengirim: inputs[1].value,
+        namaPenerima: inputs[2].value,
+        noPenerima: inputs[3].value,
+        status: 'Pending',
+        tanggal: new Date().toLocaleString()
+      };
+
+      saveHistory(data);
+
+      const pesan = `Halo Admin CVyuk!%0A%0A` +
+        `E-Wallet: ${data.wallet}%0A` +
+        `Nama Pengirim: ${data.namaPengirim}%0A` +
+        `No Pengirim: ${data.noPengirim}%0A` +
+        `Nama Penerima: ${data.namaPenerima}%0A` +
+        `No Tujuan: ${data.noPenerima}%0A%0A` +
+        `Bukti transaksi akan saya kirim.`;
+
+      window.open(`https://wa.me/6282178214040?text=${pesan}`, '_blank');
+      form.reset();
+    }
+
+    function saveHistory(data) {
+      const history = JSON.parse(localStorage.getItem('cvyuk_history') || '[]');
+      history.unshift(data);
+      localStorage.setItem('cvyuk_history', JSON.stringify(history));
+      renderHistory();
+
+    function updateStatus(index, status) {
+      const history = JSON.parse(localStorage.getItem('cvyuk_history') || '[]');
+      history[index].status = status;
+      localStorage.setItem('cvyuk_history', JSON.stringify(history));
+    }
+
+    const ADMIN_PIN = 'Rapli0909*';
+
+    function openAdmin() {
+      document.getElementById('adminLogin').style.display = 'block';
+      window.scrollTo(0,0);
+    }
+
+    function loginAdmin() {
+      const pin = document.getElementById('adminPin').value;
+      if(pin === ADMIN_PIN) {
+        document.getElementById('adminLogin').style.display = 'none';
+        document.getElementById('adminPanel').style.display = 'block';
+      } else {
+        document.getElementById('adminError').style.display = 'block';
+      }
+    }
+
+    function clearHistory() {
+      if(confirm('Hapus semua histori transaksi?')) {
+        localStorage.removeItem('cvyuk_history');
+        renderHistory();
+      }
+    }
+    }
+
+    function renderHistory() {
+      const history = JSON.parse(localStorage.getItem('cvyuk_history') || '[]');
+      historyTable.innerHTML = history.length ? history.map((h,index) => `(h => `
+        <tr>
+          <td>${h.tanggal}</td>
+          <td>${h.wallet}</td>
+          <td>${h.namaPengirim}</td>
+          <td>${h.namaPenerima}</td>
+                  <td>
+            <select onchange=\"updateStatus(${index}, this.value)\">
+              <option value=\"Pending\" ${h.status==='Pending'?'selected':''}>Pending</option>
+              <option value=\"Sukses\" ${h.status==='Sukses'?'selected':''}>Sukses</option>
+            </select>
+          </td>
+        </tr>
+      `).join('') : '<tr><td colspan="4" style="color:#aaa">Belum ada transaksi</td></tr>';
+    }
+
+    renderHistory();
   </script></body>
 </html>
