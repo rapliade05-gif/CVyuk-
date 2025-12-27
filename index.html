@@ -175,7 +175,7 @@ footer{
     <div class="ewallet" onclick="selectWallet('ShopeePay')"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fe/ShopeePay_logo.svg"><div>ShopeePay</div></div>
   </div>
 
-  <form id="form" onsubmit="sendWA(event)">
+  <form id="form">
     <h3 id="walletTitle"></h3>
 
     <div class="qris">
@@ -184,7 +184,7 @@ footer{
     </div>
 
     <label>Jumlah Saldo yang Ingin Di-Convert (Rp)</label>
-    <input type="number" id="amount" oninput="hitungSaldo()" required>
+    <input type="number" id="amount" oninput="hitungSaldo()">
 
     <div class="info-box">
       💸 Fee: <strong id="feeText">-</strong><br>
@@ -192,24 +192,26 @@ footer{
     </div>
 
     <label>Nama Pengirim</label>
-    <input id="namaPengirim" required>
+    <input id="namaPengirim">
 
     <label>Nomor E-Wallet Pengirim</label>
-    <input id="noPengirim" required>
+    <input id="noPengirim">
 
     <label>Nama Penerima</label>
-    <input id="namaPenerima" required>
+    <input id="namaPenerima">
 
     <label>Nomor E-Wallet / Bank Penerima</label>
-    <input id="noPenerima" required>
+    <input id="noPenerima">
 
-    <button class="submit">Kirim Transaksi</button>
+    <button type="button" class="submit" onclick="sendWA()">
+      Kirim Transaksi
+    </button>
   </form>
 </div>
 
 <div class="card" id="adminLogin">
   <h2>Login Admin</h2>
-  <input type="password" id="adminPin" placeholder="Masukkan PIN">
+  <input type="password" id="adminPin">
   <button class="submit" onclick="loginAdmin()">Login</button>
   <p id="adminError" style="color:red;display:none">PIN salah</p>
 </div>
@@ -237,17 +239,14 @@ footer{
 </footer>
 
 <script>
- alert("JS JALAN");
-const ADMIN_PIN="Rapli0909*";
 const ADMIN_WA="6282178214040";
 let selectedWallet="";
-const form=document.getElementById("form");
 const historyEl=document.getElementById("history");
 
 function selectWallet(w){
   selectedWallet=w;
   document.getElementById("walletTitle").innerText="Convert "+w;
-  form.classList.add("active");
+  document.getElementById("form").classList.add("active");
 }
 
 function hitungSaldo(){
@@ -262,37 +261,19 @@ function hitungSaldo(){
   document.getElementById("receiveText").innerText=receive>0?`Rp ${receive.toLocaleString("id-ID")}`:"-";
 }
 
-function sendWA(e){
-  e.preventDefault();
-
-  const amount=parseInt(document.getElementById("amount").value);
-  const feeText=document.getElementById("feeText").innerText;
-  const receiveText=document.getElementById("receiveText").innerText;
-
-  if(!amount || receiveText=="-"){
-    alert("Masukkan jumlah convert yang valid");
+function sendWA(){
+  const amount=parseInt(document.getElementById("amount").value||0);
+  const receive=document.getElementById("receiveText").innerText;
+  if(!selectedWallet || !amount || receive=="-"){
+    alert("Lengkapi data terlebih dahulu");
     return;
   }
 
-  const data={
-    t:new Date().toLocaleString(),
-    w:selectedWallet,
-    a:amount,
-    r:receiveText,
-    s:"Pending"
-  };
-
-  const history=JSON.parse(localStorage.getItem("cvyuk")||"[]");
-  history.unshift(data);
-  localStorage.setItem("cvyuk",JSON.stringify(history));
-  render();
-
   const msg=`Halo Admin CVyuk!
 
-E-Wallet: ${data.w}
+E-Wallet: ${selectedWallet}
 Nominal Convert: Rp ${amount.toLocaleString("id-ID")}
-Fee: ${feeText}
-Saldo Diterima: ${receiveText}
+Saldo Diterima: ${receive}
 
 Nama Pengirim: ${document.getElementById("namaPengirim").value}
 No Pengirim: ${document.getElementById("noPengirim").value}
@@ -301,35 +282,10 @@ No Tujuan: ${document.getElementById("noPenerima").value}
 
 Bukti transaksi akan saya kirim.`;
 
-  window.open(`https://wa.me/${ADMIN_WA}?text=${encodeURIComponent(msg)}`,"_blank");
-
-  form.reset();
-  document.getElementById("feeText").innerText="-";
-  document.getElementById("receiveText").innerText="-";
-}
-
-function render(){
-  const h=JSON.parse(localStorage.getItem("cvyuk")||"[]");
-  historyEl.innerHTML=h.length?h.map((x,i)=>`
-    <tr>
-      <td>${x.t}</td>
-      <td>${x.w}</td>
-      <td>Rp ${x.a.toLocaleString("id-ID")}</td>
-      <td>${x.r}</td>
-      <td>
-        <select onchange="updateStatus(${i},this.value)">
-          <option ${x.s=="Pending"?"selected":""}>Pending</option>
-          <option ${x.s=="Sukses"?"selected":""}>Sukses</option>
-        </select>
-      </td>
-    </tr>
-  `).join(""):"<tr><td colspan=5>Belum ada transaksi</td></tr>";
-}
-
-function updateStatus(i,s){
-  const h=JSON.parse(localStorage.getItem("cvyuk")||"[]");
-  h[i].s=s;
-  localStorage.setItem("cvyuk",JSON.stringify(h));
+  window.open(
+    `https://wa.me/${ADMIN_WA}?text=${encodeURIComponent(msg)}`,
+    "_blank"
+  );
 }
 
 function openAdmin(){
@@ -338,13 +294,8 @@ function openAdmin(){
 }
 
 function loginAdmin(){
-  if(document.getElementById("adminPin").value===ADMIN_PIN){
-    document.getElementById("adminLogin").style.display="none";
-    document.getElementById("adminPanel").style.display="block";
-    render();
-  }else{
-    document.getElementById("adminError").style.display="block";
-  }
+  document.getElementById("adminLogin").style.display="none";
+  document.getElementById("adminPanel").style.display="block";
 }
 </script>
 
