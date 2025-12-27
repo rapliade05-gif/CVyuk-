@@ -8,74 +8,43 @@
 <style>
 :root{
   --primary:#4f5dff;
-  --accent:#22c55e;
   --bg:#f6f8fc;
   --card:#ffffff;
   --text:#1f2937;
   --muted:#6b7280;
+  --soft:#eef2ff;
 }
 *{box-sizing:border-box;font-family:Segoe UI,Arial,sans-serif}
-body{margin:0;background:var(--bg);color:var(--text);line-height:1.6}
-
-/* HEADER */
+body{margin:0;background:var(--bg);color:var(--text)}
 header{
   background:#fff;
-  position:sticky;
-  top:0;
-  z-index:10;
-  box-shadow:0 2px 10px rgba(0,0,0,.05);
+  position:sticky;top:0;z-index:10;
+  box-shadow:0 2px 10px rgba(0,0,0,.05)
 }
 .header-inner{
-  max-width:1100px;
-  margin:auto;
+  max-width:1100px;margin:auto;
   padding:14px 20px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+  display:flex;justify-content:space-between;align-items:center
 }
-.logo{
-  font-size:22px;
-  font-weight:800;
-  color:var(--primary);
-}
-.header-inner button{
-  background:var(--primary);
-  color:#fff;
-  border:none;
-  padding:8px 16px;
-  border-radius:8px;
-  cursor:pointer;
+.logo{font-size:22px;font-weight:800;color:var(--primary)}
+header button{
+  background:var(--primary);color:#fff;
+  border:none;border-radius:8px;
+  padding:8px 16px;cursor:pointer
 }
 
 /* HERO */
 .hero{
   background:linear-gradient(135deg,#4f5dff,#7c86ff);
-  color:#fff;
-  padding:70px 20px;
+  color:#fff;padding:70px 20px
 }
 .hero-inner{
-  max-width:1100px;
-  margin:auto;
-  display:grid;
-  grid-template-columns:1.2fr 1fr;
-  gap:30px;
+  max-width:1100px;margin:auto;
+  display:grid;grid-template-columns:1.2fr 1fr;gap:30px
 }
 .hero h1{font-size:36px;margin:0 0 12px}
-.hero p{opacity:.95}
-.hero .cta{
-  margin-top:20px;
-  display:inline-block;
-  background:#facc15;
-  color:#111;
-  padding:12px 26px;
-  border-radius:10px;
-  font-weight:700;
-  text-decoration:none;
-}
 .hero-box{
-  background:#ffffff20;
-  padding:20px;
-  border-radius:14px;
+  background:#ffffff25;padding:20px;border-radius:14px
 }
 
 /* MAIN */
@@ -85,59 +54,36 @@ main{max-width:1100px;margin:auto;padding:30px 20px}
   border-radius:16px;
   padding:26px;
   margin-bottom:26px;
-  box-shadow:0 12px 30px rgba(0,0,0,.06);
-  animation:fade .4s ease;
-}
-@keyframes fade{
-  from{opacity:0;transform:translateY(10px)}
-  to{opacity:1;transform:none}
+  box-shadow:0 12px 30px rgba(0,0,0,.06)
 }
 h2{margin-top:0}
-
-/* INFO GRID */
-.info{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:16px;
-}
-.info-box{
-  border:1px solid #eee;
-  border-radius:14px;
-  padding:18px;
-}
-.info-box span{font-size:22px}
 
 /* STEPS */
 .steps{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:16px;
+  gap:16px
 }
 .step{
-  background:#eef2ff;
+  background:var(--soft);
   border-radius:14px;
-  padding:18px;
-  text-align:center;
+  padding:18px;text-align:center
 }
-.step strong{display:block;margin-top:8px}
 
 /* EWALLET */
 .ewallets{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
-  gap:16px;
+  gap:16px
 }
 .ewallet{
-  border:1px solid #eee;
-  border-radius:14px;
-  padding:16px;
-  text-align:center;
-  cursor:pointer;
-  transition:.2s;
+  border:1px solid #eee;border-radius:14px;
+  padding:16px;text-align:center;
+  cursor:pointer;transition:.2s
 }
 .ewallet:hover{
   border-color:var(--primary);
-  transform:translateY(-4px);
+  transform:translateY(-4px)
 }
 .ewallet img{width:46px;height:46px}
 
@@ -146,23 +92,27 @@ form{display:none;margin-top:24px}
 form.active{display:block}
 label{font-size:13px;color:var(--muted)}
 input{
-  width:100%;
-  padding:10px 12px;
-  border-radius:10px;
-  border:1px solid #ddd;
-  margin-bottom:12px;
+  width:100%;padding:10px 12px;
+  border-radius:10px;border:1px solid #ddd;
+  margin-bottom:12px
+}
+.info-box{
+  background:var(--soft);
+  padding:12px;border-radius:10px;
+  margin-bottom:12px;font-size:14px
 }
 button.submit{
   background:var(--primary);
-  color:#fff;
-  border:none;
+  color:#fff;border:none;
   padding:12px 22px;
   border-radius:12px;
-  cursor:pointer;
-  font-weight:600;
+  cursor:pointer;font-weight:600
 }
 .qris{text-align:center;margin:20px 0}
-.qris img{width:220px;border-radius:12px;border:1px dashed #ccc}
+.qris img{
+  width:220px;border-radius:12px;
+  border:1px dashed #ccc
+}
 
 /* ADMIN */
 #adminLogin,#adminPanel{display:none}
@@ -173,12 +123,9 @@ th,td{padding:10px;border-bottom:1px solid #eee}
 th{color:var(--muted)}
 
 footer{
-  background:#fff;
-  border-top:1px solid #eee;
-  text-align:center;
-  padding:20px;
-  font-size:13px;
-  color:#777;
+  background:#fff;border-top:1px solid #eee;
+  text-align:center;padding:20px;
+  font-size:13px;color:#777
 }
 </style>
 </head>
@@ -196,14 +143,13 @@ footer{
   <div class="hero-inner">
     <div>
       <h1>Jasa Convert E-Wallet Non Premium</h1>
-      <p>CVyuk! melayani convert saldo DANA, OVO, GoPay, dan ShopeePay dengan proses manual, aman, dan admin fast response.</p>
-      <a href="#convert" class="cta">Mulai Convert</a>
+      <p>Convert saldo DANA, OVO, GoPay, ShopeePay dengan proses manual, aman & admin fast response.</p>
     </div>
     <div class="hero-box">
-      ✅ Proses manual & aman<br>
-      ⚡ Fast response admin<br>
-      💬 Konfirmasi via WhatsApp<br>
-      🟢 Online setiap hari
+      ✅ Proses Manual<br>
+      ⚡ Fast Response<br>
+      🔐 Aman & Terpercaya<br>
+      📱 Konfirmasi WhatsApp
     </div>
   </div>
 </section>
@@ -211,21 +157,12 @@ footer{
 <main>
 
 <div class="card">
-  <h2>Kenapa Pilih CVyuk?</h2>
-  <div class="info">
-    <div class="info-box"><span>🔐</span><br><strong>Aman</strong><br>Proses manual tanpa sistem otomatis berisiko</div>
-    <div class="info-box"><span>⚡</span><br><strong>Cepat</strong><br>Admin responsif & langsung diproses</div>
-    <div class="info-box"><span>💳</span><br><strong>Lengkap</strong><br>Support semua e-wallet populer</div>
-  </div>
-</div>
-
-<div class="card">
   <h2>Cara Kerja</h2>
   <div class="steps">
-    <div class="step">1️⃣<strong>Pilih E-Wallet</strong></div>
-    <div class="step">2️⃣<strong>Transfer via QRIS</strong></div>
-    <div class="step">3️⃣<strong>Admin Verifikasi</strong></div>
-    <div class="step">4️⃣<strong>Saldo Dikirim</strong></div>
+    <div class="step">1️⃣ Pilih E-Wallet</div>
+    <div class="step">2️⃣ Transfer via QRIS</div>
+    <div class="step">3️⃣ Admin Verifikasi</div>
+    <div class="step">4️⃣ Saldo Dikirim</div>
   </div>
 </div>
 
@@ -242,8 +179,16 @@ footer{
     <h3 id="walletTitle"></h3>
 
     <div class="qris">
-      <p>Scan QRIS berikut untuk pembayaran</p>
+      <p>Scan QRIS berikut</p>
       <img src="qris-anda.png">
+    </div>
+
+    <label>Jumlah Saldo yang Ingin Di-Convert (Rp)</label>
+    <input type="number" id="amount" oninput="hitungSaldo()" required>
+
+    <div class="info-box">
+      💸 Fee: <strong id="feeText">-</strong><br>
+      ✅ Saldo Diterima: <strong id="receiveText">-</strong>
     </div>
 
     <label>Nama Pengirim</label>
@@ -276,8 +221,8 @@ footer{
       <tr>
         <th>Tanggal</th>
         <th>E-Wallet</th>
-        <th>Pengirim</th>
-        <th>Penerima</th>
+        <th>Nominal</th>
+        <th>Diterima</th>
         <th>Status</th>
       </tr>
     </thead>
@@ -292,7 +237,7 @@ footer{
 </footer>
 
 <script>
-const ADMIN_PIN="Rapli0909";
+const ADMIN_PIN="Rapli0909*";
 const ADMIN_WA="6282178214040";
 let selectedWallet="";
 const form=document.getElementById("form");
@@ -303,48 +248,81 @@ function selectWallet(w){
   document.getElementById("walletTitle").innerText="Convert "+w;
   form.classList.add("active");
 }
+
+function hitungSaldo(){
+  const amount=parseInt(document.getElementById("amount").value||0);
+  let fee=0;
+  if(amount>=10000 && amount<=100000) fee=2000;
+  else if(amount>100000 && amount<=1000000) fee=5000;
+  else if(amount>1000000 && amount<=10000000) fee=10000;
+  const receive=amount-fee;
+
+  document.getElementById("feeText").innerText=fee?`Rp ${fee.toLocaleString("id-ID")}`:"-";
+  document.getElementById("receiveText").innerText=receive>0?`Rp ${receive.toLocaleString("id-ID")}`:"-";
+}
+
 function sendWA(e){
   e.preventDefault();
   const i=form.querySelectorAll("input");
-  const data={t:new Date().toLocaleString(),w:selectedWallet,p:i[0].value,np:i[1].value,r:i[2].value,nr:i[3].value,s:"Pending"};
+  const amount=parseInt(document.getElementById("amount").value);
+  const fee=document.getElementById("feeText").innerText;
+  const receive=document.getElementById("receiveText").innerText;
+
+  const data={
+    t:new Date().toLocaleString(),
+    w:selectedWallet,
+    a:amount,
+    r:receive,
+    s:"Pending"
+  };
+
   const h=JSON.parse(localStorage.getItem("cvyuk")||"[]");
   h.unshift(data);
   localStorage.setItem("cvyuk",JSON.stringify(h));
   render();
+
   const msg=`Halo Admin CVyuk!
 
 E-Wallet: ${data.w}
-Pengirim: ${data.p}
-No Pengirim: ${data.np}
-Penerima: ${data.r}
-No Tujuan: ${data.nr}
+Nominal Convert: Rp ${amount.toLocaleString("id-ID")}
+Fee: ${fee}
+Saldo Diterima: ${receive}
 
 Bukti transaksi akan saya kirim.`;
+
   window.open(`https://wa.me/${ADMIN_WA}?text=${encodeURIComponent(msg)}`);
   form.reset();
 }
+
 function render(){
   const h=JSON.parse(localStorage.getItem("cvyuk")||"[]");
   historyEl.innerHTML=h.length?h.map((x,i)=>`
-  <tr>
-    <td>${x.t}</td><td>${x.w}</td><td>${x.p}</td><td>${x.r}</td>
-    <td>
-      <select onchange="updateStatus(${i},this.value)">
-        <option ${x.s=="Pending"?"selected":""}>Pending</option>
-        <option ${x.s=="Sukses"?"selected":""}>Sukses</option>
-      </select>
-    </td>
-  </tr>`).join(""):"<tr><td colspan=5>Belum ada transaksi</td></tr>";
+    <tr>
+      <td>${x.t}</td>
+      <td>${x.w}</td>
+      <td>Rp ${x.a.toLocaleString("id-ID")}</td>
+      <td>${x.r}</td>
+      <td>
+        <select onchange="updateStatus(${i},this.value)">
+          <option ${x.s=="Pending"?"selected":""}>Pending</option>
+          <option ${x.s=="Sukses"?"selected":""}>Sukses</option>
+        </select>
+      </td>
+    </tr>
+  `).join(""):"<tr><td colspan=5>Belum ada transaksi</td></tr>";
 }
+
 function updateStatus(i,s){
   const h=JSON.parse(localStorage.getItem("cvyuk")||"[]");
   h[i].s=s;
   localStorage.setItem("cvyuk",JSON.stringify(h));
 }
+
 function openAdmin(){
   document.getElementById("adminLogin").style.display="block";
   window.scrollTo(0,0);
 }
+
 function loginAdmin(){
   if(document.getElementById("adminPin").value===ADMIN_PIN){
     document.getElementById("adminLogin").style.display="none";
