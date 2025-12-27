@@ -3,34 +3,76 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CVyuk! – Convert Ewallet</title>
+<title>CVyuk! – Jasa Convert E-Wallet</title>
 
 <style>
 :root{
-  --bg:#f4f6fb;
+  --primary:#5f6fff;
+  --secondary:#eef1ff;
+  --bg:#f5f7fb;
   --card:#ffffff;
-  --primary:#6c7cff;
   --text:#2b2b2b;
-  --muted:#8a8fa3;
+  --muted:#7a7f99;
 }
 *{box-sizing:border-box;font-family:Segoe UI,Arial,sans-serif}
-body{margin:0;background:var(--bg);color:var(--text)}
+body{margin:0;background:var(--bg);color:var(--text);line-height:1.6}
+
+/* HEADER */
 header{
-  padding:18px 24px;
-  font-size:22px;
-  font-weight:700;
-  color:#fff;
   background:var(--primary);
+  color:#fff;
+  padding:18px 24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
+header h1{margin:0;font-size:22px}
 header button{
-  float:right;
   background:#fff;
   color:var(--primary);
   border:none;
   border-radius:8px;
-  padding:6px 12px;
+  padding:6px 14px;
   cursor:pointer;
+  font-weight:600;
 }
+
+/* HERO */
+.hero{
+  background:linear-gradient(135deg,#5f6fff,#8fa2ff);
+  color:#fff;
+  padding:60px 20px;
+  text-align:center;
+}
+.hero h2{font-size:32px;margin-bottom:12px}
+.hero p{font-size:16px;max-width:600px;margin:auto}
+.hero .cta{
+  display:inline-block;
+  margin-top:20px;
+  background:#ffd54f;
+  color:#222;
+  padding:12px 26px;
+  border-radius:10px;
+  font-weight:700;
+  text-decoration:none;
+}
+
+/* BADGES */
+.badges{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:30px;
+}
+.badge{
+  background:#ffffff30;
+  padding:8px 14px;
+  border-radius:20px;
+  font-size:14px;
+}
+
+/* MAIN */
 main{max-width:1100px;margin:auto;padding:24px}
 .card{
   background:var(--card);
@@ -38,8 +80,29 @@ main{max-width:1100px;margin:auto;padding:24px}
   padding:24px;
   margin-bottom:24px;
   box-shadow:0 10px 25px rgba(0,0,0,.05);
+  animation:fade .4s ease;
 }
-h2{margin-top:0;font-size:18px}
+@keyframes fade{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:none}
+}
+h3{margin-top:0}
+
+/* STEPS */
+.steps{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:16px;
+}
+.step{
+  background:var(--secondary);
+  border-radius:14px;
+  padding:16px;
+  text-align:center;
+}
+.step span{font-size:24px}
+
+/* EWALLET */
 .ewallets{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
@@ -53,12 +116,14 @@ h2{margin-top:0;font-size:18px}
   cursor:pointer;
   transition:.2s;
 }
-.ewallet:hover{border-color:var(--primary)}
+.ewallet:hover{border-color:var(--primary);transform:translateY(-3px)}
 .ewallet img{width:48px;height:48px;object-fit:contain}
+
+/* FORM */
 form{display:none;margin-top:24px}
 form.active{display:block}
 label{font-size:13px;color:var(--muted)}
-input,select{
+input{
   width:100%;
   padding:10px 12px;
   border-radius:10px;
@@ -69,43 +134,64 @@ button.submit{
   background:var(--primary);
   color:#fff;
   border:none;
-  padding:12px 20px;
+  padding:12px 22px;
   border-radius:12px;
   cursor:pointer;
+  font-weight:600;
 }
 .qris{text-align:center;margin:20px 0}
 .qris img{width:220px;border-radius:12px;border:1px dashed #ccc}
 
-table{width:100%;border-collapse:collapse;font-size:14px}
-th,td{padding:10px;border-bottom:1px solid #eee;text-align:left}
-th{color:var(--muted)}
-
+/* ADMIN */
 #adminLogin,#adminPanel{display:none}
-.status{padding:4px 8px;border-radius:6px}
+
+/* TABLE */
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:10px;border-bottom:1px solid #eee}
+th{color:var(--muted)}
+footer{
+  text-align:center;
+  padding:20px;
+  color:#888;
+  font-size:13px;
+}
 </style>
 </head>
 
 <body>
 
 <header>
-  CVyuk!
+  <h1>CVyuk!</h1>
   <button onclick="openAdmin()">Admin</button>
 </header>
 
+<section class="hero">
+  <h2>Jasa Convert E-Wallet Non Premium</h2>
+  <p>Convert saldo DANA, OVO, GoPay & ShopeePay dengan proses cepat, aman, dan manual oleh admin.</p>
+  <a class="cta" href="#convert">Mulai Convert Sekarang</a>
+
+  <div class="badges">
+    <div class="badge">⚡ Fast Response</div>
+    <div class="badge">🔐 Aman & Manual</div>
+    <div class="badge">📱 Support Semua E-Wallet</div>
+    <div class="badge">🟢 Online Setiap Hari</div>
+  </div>
+</section>
+
 <main>
 
-<!-- LOGIN ADMIN -->
-<div class="card" id="adminLogin">
-  <h2>Login Admin</h2>
-  <label>PIN Admin</label>
-  <input type="password" id="adminPin" placeholder="Masukkan PIN">
-  <button class="submit" onclick="loginAdmin()">Login</button>
-  <p id="adminError" style="color:red;display:none">PIN salah</p>
+<div class="card">
+  <h3>Cara Kerja</h3>
+  <div class="steps">
+    <div class="step"><span>1️⃣</span><p>Pilih E-Wallet</p></div>
+    <div class="step"><span>2️⃣</span><p>Transfer via QRIS</p></div>
+    <div class="step"><span>3️⃣</span><p>Admin Konfirmasi</p></div>
+    <div class="step"><span>4️⃣</span><p>Saldo Dikirim</p></div>
+  </div>
 </div>
 
-<!-- PILIH EWALLET -->
-<div class="card">
-  <h2>Pilih E-Wallet</h2>
+<div class="card" id="convert">
+  <h3>Pilih E-Wallet</h3>
   <div class="ewallets">
     <div class="ewallet" onclick="selectWallet('DANA')">
       <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg"><div>DANA</div>
@@ -121,39 +207,44 @@ th{color:var(--muted)}
     </div>
   </div>
 
-  <!-- FORM -->
   <form id="form" onsubmit="sendWA(event)">
-    <h2 id="walletTitle"></h2>
+    <h3 id="walletTitle"></h3>
 
     <div class="qris">
-      <p>Scan QRIS:</p>
+      <p>Scan QRIS di bawah ini</p>
       <img src="qris-anda.png">
     </div>
 
     <label>Nama Pengirim</label>
     <input required>
 
-    <label>Nomor Ewallet Pengirim</label>
+    <label>Nomor E-Wallet Pengirim</label>
     <input required>
 
     <label>Nama Penerima</label>
     <input required>
 
-    <label>Nomor Ewallet / Bank Penerima</label>
+    <label>Nomor E-Wallet / Bank Penerima</label>
     <input required>
 
-    <button class="submit" type="submit">Kirim Transaksi</button>
+    <button class="submit">Kirim Transaksi</button>
   </form>
 </div>
 
-<!-- PANEL ADMIN -->
+<div class="card" id="adminLogin">
+  <h3>Login Admin</h3>
+  <input type="password" id="adminPin" placeholder="Masukkan PIN">
+  <button class="submit" onclick="loginAdmin()">Login</button>
+  <p id="adminError" style="color:red;display:none">PIN salah</p>
+</div>
+
 <div class="card" id="adminPanel">
-  <h2>Histori Transaksi</h2>
+  <h3>Histori Transaksi</h3>
   <table>
     <thead>
       <tr>
         <th>Tanggal</th>
-        <th>Ewallet</th>
+        <th>E-Wallet</th>
         <th>Pengirim</th>
         <th>Penerima</th>
         <th>Status</th>
@@ -165,86 +256,77 @@ th{color:var(--muted)}
 
 </main>
 
+<footer>
+  © 2025 CVyuk! • Jasa Convert Saldo E-Wallet
+</footer>
+
 <script>
-const ADMIN_PIN = "Rapli0909";
-const ADMIN_WA = "6282178214040";
-let selectedWallet = "";
-const form = document.getElementById("form");
-const historyEl = document.getElementById("history");
+const ADMIN_PIN="1234";
+const ADMIN_WA="6282178214040";
+let selectedWallet="";
+const form=document.getElementById("form");
+const historyEl=document.getElementById("history");
 
 function selectWallet(w){
-  selectedWallet = w;
-  document.getElementById("walletTitle").innerText = "Convert " + w;
+  selectedWallet=w;
+  document.getElementById("walletTitle").innerText="Convert "+w;
   form.classList.add("active");
 }
-
 function sendWA(e){
   e.preventDefault();
-  const i = form.querySelectorAll("input");
-  const data = {
-    tanggal:new Date().toLocaleString(),
-    wallet:selectedWallet,
-    pengirim:i[0].value,
-    noPengirim:i[1].value,
-    penerima:i[2].value,
-    noPenerima:i[3].value,
-    status:"Pending"
+  const i=form.querySelectorAll("input");
+  const data={
+    t:new Date().toLocaleString(),
+    w:selectedWallet,
+    p:i[0].value,
+    np:i[1].value,
+    r:i[2].value,
+    nr:i[3].value,
+    s:"Pending"
   };
-
-  const h = JSON.parse(localStorage.getItem("cvyuk")||"[]");
+  const h=JSON.parse(localStorage.getItem("cvyuk")||"[]");
   h.unshift(data);
   localStorage.setItem("cvyuk",JSON.stringify(h));
-  renderHistory();
+  render();
+  const msg=`Halo Admin CVyuk!
 
-  const msg =
-`Halo Admin CVyuk!
-
-Ewallet: ${data.wallet}
-Pengirim: ${data.pengirim}
-No Pengirim: ${data.noPengirim}
-Penerima: ${data.penerima}
-No Tujuan: ${data.noPenerima}
+E-Wallet: ${data.w}
+Pengirim: ${data.p}
+No Pengirim: ${data.np}
+Penerima: ${data.r}
+No Tujuan: ${data.nr}
 
 Bukti transaksi akan saya kirim.`;
-
   window.open(`https://wa.me/${ADMIN_WA}?text=${encodeURIComponent(msg)}`);
   form.reset();
 }
-
-function renderHistory(){
-  const h = JSON.parse(localStorage.getItem("cvyuk")||"[]");
-  historyEl.innerHTML = h.length ? h.map((x,i)=>`
-    <tr>
-      <td>${x.tanggal}</td>
-      <td>${x.wallet}</td>
-      <td>${x.pengirim}</td>
-      <td>${x.penerima}</td>
-      <td>
-        <select onchange="updateStatus(${i},this.value)">
-          <option ${x.status=="Pending"?"selected":""}>Pending</option>
-          <option ${x.status=="Sukses"?"selected":""}>Sukses</option>
-        </select>
-      </td>
-    </tr>`).join("") :
-    "<tr><td colspan='5'>Belum ada transaksi</td></tr>";
+function render(){
+  const h=JSON.parse(localStorage.getItem("cvyuk")||"[]");
+  historyEl.innerHTML=h.length?h.map((x,i)=>`
+  <tr>
+    <td>${x.t}</td><td>${x.w}</td><td>${x.p}</td><td>${x.r}</td>
+    <td>
+      <select onchange="updateStatus(${i},this.value)">
+        <option ${x.s=="Pending"?"selected":""}>Pending</option>
+        <option ${x.s=="Sukses"?"selected":""}>Sukses</option>
+      </select>
+    </td>
+  </tr>`).join(""):"<tr><td colspan=5>Belum ada transaksi</td></tr>";
 }
-
 function updateStatus(i,s){
-  const h = JSON.parse(localStorage.getItem("cvyuk")||"[]");
-  h[i].status = s;
+  const h=JSON.parse(localStorage.getItem("cvyuk")||"[]");
+  h[i].s=s;
   localStorage.setItem("cvyuk",JSON.stringify(h));
 }
-
 function openAdmin(){
   document.getElementById("adminLogin").style.display="block";
   window.scrollTo(0,0);
 }
-
 function loginAdmin(){
   if(document.getElementById("adminPin").value===ADMIN_PIN){
     document.getElementById("adminLogin").style.display="none";
     document.getElementById("adminPanel").style.display="block";
-    renderHistory();
+    render();
   }else{
     document.getElementById("adminError").style.display="block";
   }
