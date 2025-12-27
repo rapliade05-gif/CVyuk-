@@ -7,86 +7,105 @@
 
 <style>
 :root{
-  --primary:#5f6fff;
-  --secondary:#eef1ff;
-  --bg:#f5f7fb;
+  --primary:#4f5dff;
+  --accent:#22c55e;
+  --bg:#f6f8fc;
   --card:#ffffff;
-  --text:#2b2b2b;
-  --muted:#7a7f99;
+  --text:#1f2937;
+  --muted:#6b7280;
 }
 *{box-sizing:border-box;font-family:Segoe UI,Arial,sans-serif}
 body{margin:0;background:var(--bg);color:var(--text);line-height:1.6}
 
 /* HEADER */
 header{
-  background:var(--primary);
-  color:#fff;
-  padding:18px 24px;
+  background:#fff;
+  position:sticky;
+  top:0;
+  z-index:10;
+  box-shadow:0 2px 10px rgba(0,0,0,.05);
+}
+.header-inner{
+  max-width:1100px;
+  margin:auto;
+  padding:14px 20px;
   display:flex;
   justify-content:space-between;
   align-items:center;
 }
-header h1{margin:0;font-size:22px}
-header button{
-  background:#fff;
+.logo{
+  font-size:22px;
+  font-weight:800;
   color:var(--primary);
+}
+.header-inner button{
+  background:var(--primary);
+  color:#fff;
   border:none;
+  padding:8px 16px;
   border-radius:8px;
-  padding:6px 14px;
   cursor:pointer;
-  font-weight:600;
 }
 
 /* HERO */
 .hero{
-  background:linear-gradient(135deg,#5f6fff,#8fa2ff);
+  background:linear-gradient(135deg,#4f5dff,#7c86ff);
   color:#fff;
-  padding:60px 20px;
-  text-align:center;
+  padding:70px 20px;
 }
-.hero h2{font-size:32px;margin-bottom:12px}
-.hero p{font-size:16px;max-width:600px;margin:auto}
+.hero-inner{
+  max-width:1100px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1.2fr 1fr;
+  gap:30px;
+}
+.hero h1{font-size:36px;margin:0 0 12px}
+.hero p{opacity:.95}
 .hero .cta{
-  display:inline-block;
   margin-top:20px;
-  background:#ffd54f;
-  color:#222;
+  display:inline-block;
+  background:#facc15;
+  color:#111;
   padding:12px 26px;
   border-radius:10px;
   font-weight:700;
   text-decoration:none;
 }
-
-/* BADGES */
-.badges{
-  display:flex;
-  justify-content:center;
-  gap:12px;
-  flex-wrap:wrap;
-  margin-top:30px;
-}
-.badge{
-  background:#ffffff30;
-  padding:8px 14px;
-  border-radius:20px;
-  font-size:14px;
+.hero-box{
+  background:#ffffff20;
+  padding:20px;
+  border-radius:14px;
 }
 
 /* MAIN */
-main{max-width:1100px;margin:auto;padding:24px}
+main{max-width:1100px;margin:auto;padding:30px 20px}
 .card{
   background:var(--card);
   border-radius:16px;
-  padding:24px;
-  margin-bottom:24px;
-  box-shadow:0 10px 25px rgba(0,0,0,.05);
+  padding:26px;
+  margin-bottom:26px;
+  box-shadow:0 12px 30px rgba(0,0,0,.06);
   animation:fade .4s ease;
 }
 @keyframes fade{
   from{opacity:0;transform:translateY(10px)}
   to{opacity:1;transform:none}
 }
-h3{margin-top:0}
+h2{margin-top:0}
+
+/* INFO GRID */
+.info{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:16px;
+}
+.info-box{
+  border:1px solid #eee;
+  border-radius:14px;
+  padding:18px;
+}
+.info-box span{font-size:22px}
 
 /* STEPS */
 .steps{
@@ -95,12 +114,12 @@ h3{margin-top:0}
   gap:16px;
 }
 .step{
-  background:var(--secondary);
+  background:#eef2ff;
   border-radius:14px;
-  padding:16px;
+  padding:18px;
   text-align:center;
 }
-.step span{font-size:24px}
+.step strong{display:block;margin-top:8px}
 
 /* EWALLET */
 .ewallets{
@@ -110,14 +129,17 @@ h3{margin-top:0}
 }
 .ewallet{
   border:1px solid #eee;
-  border-radius:12px;
+  border-radius:14px;
   padding:16px;
   text-align:center;
   cursor:pointer;
   transition:.2s;
 }
-.ewallet:hover{border-color:var(--primary);transform:translateY(-3px)}
-.ewallet img{width:48px;height:48px;object-fit:contain}
+.ewallet:hover{
+  border-color:var(--primary);
+  transform:translateY(-4px);
+}
+.ewallet img{width:46px;height:46px}
 
 /* FORM */
 form{display:none;margin-top:24px}
@@ -149,11 +171,14 @@ button.submit{
 table{width:100%;border-collapse:collapse;font-size:14px}
 th,td{padding:10px;border-bottom:1px solid #eee}
 th{color:var(--muted)}
+
 footer{
+  background:#fff;
+  border-top:1px solid #eee;
   text-align:center;
   padding:20px;
-  color:#888;
   font-size:13px;
+  color:#777;
 }
 </style>
 </head>
@@ -161,57 +186,63 @@ footer{
 <body>
 
 <header>
-  <h1>CVyuk!</h1>
-  <button onclick="openAdmin()">Admin</button>
+  <div class="header-inner">
+    <div class="logo">CVyuk!</div>
+    <button onclick="openAdmin()">Admin</button>
+  </div>
 </header>
 
 <section class="hero">
-  <h2>Jasa Convert E-Wallet Non Premium</h2>
-  <p>Convert saldo DANA, OVO, GoPay & ShopeePay dengan proses cepat, aman, dan manual oleh admin.</p>
-  <a class="cta" href="#convert">Mulai Convert Sekarang</a>
-
-  <div class="badges">
-    <div class="badge">⚡ Fast Response</div>
-    <div class="badge">🔐 Aman & Manual</div>
-    <div class="badge">📱 Support Semua E-Wallet</div>
-    <div class="badge">🟢 Online Setiap Hari</div>
+  <div class="hero-inner">
+    <div>
+      <h1>Jasa Convert E-Wallet Non Premium</h1>
+      <p>CVyuk! melayani convert saldo DANA, OVO, GoPay, dan ShopeePay dengan proses manual, aman, dan admin fast response.</p>
+      <a href="#convert" class="cta">Mulai Convert</a>
+    </div>
+    <div class="hero-box">
+      ✅ Proses manual & aman<br>
+      ⚡ Fast response admin<br>
+      💬 Konfirmasi via WhatsApp<br>
+      🟢 Online setiap hari
+    </div>
   </div>
 </section>
 
 <main>
 
 <div class="card">
-  <h3>Cara Kerja</h3>
+  <h2>Kenapa Pilih CVyuk?</h2>
+  <div class="info">
+    <div class="info-box"><span>🔐</span><br><strong>Aman</strong><br>Proses manual tanpa sistem otomatis berisiko</div>
+    <div class="info-box"><span>⚡</span><br><strong>Cepat</strong><br>Admin responsif & langsung diproses</div>
+    <div class="info-box"><span>💳</span><br><strong>Lengkap</strong><br>Support semua e-wallet populer</div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>Cara Kerja</h2>
   <div class="steps">
-    <div class="step"><span>1️⃣</span><p>Pilih E-Wallet</p></div>
-    <div class="step"><span>2️⃣</span><p>Transfer via QRIS</p></div>
-    <div class="step"><span>3️⃣</span><p>Admin Konfirmasi</p></div>
-    <div class="step"><span>4️⃣</span><p>Saldo Dikirim</p></div>
+    <div class="step">1️⃣<strong>Pilih E-Wallet</strong></div>
+    <div class="step">2️⃣<strong>Transfer via QRIS</strong></div>
+    <div class="step">3️⃣<strong>Admin Verifikasi</strong></div>
+    <div class="step">4️⃣<strong>Saldo Dikirim</strong></div>
   </div>
 </div>
 
 <div class="card" id="convert">
-  <h3>Pilih E-Wallet</h3>
+  <h2>Pilih E-Wallet</h2>
   <div class="ewallets">
-    <div class="ewallet" onclick="selectWallet('DANA')">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg"><div>DANA</div>
-    </div>
-    <div class="ewallet" onclick="selectWallet('OVO')">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/e/eb/Logo_ovo_purple.svg"><div>OVO</div>
-    </div>
-    <div class="ewallet" onclick="selectWallet('GoPay')">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/8/86/Gopay_logo.svg"><div>GoPay</div>
-    </div>
-    <div class="ewallet" onclick="selectWallet('ShopeePay')">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/f/fe/ShopeePay_logo.svg"><div>ShopeePay</div>
-    </div>
+    <div class="ewallet" onclick="selectWallet('DANA')"><img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg"><div>DANA</div></div>
+    <div class="ewallet" onclick="selectWallet('OVO')"><img src="https://upload.wikimedia.org/wikipedia/commons/e/eb/Logo_ovo_purple.svg"><div>OVO</div></div>
+    <div class="ewallet" onclick="selectWallet('GoPay')"><img src="https://upload.wikimedia.org/wikipedia/commons/8/86/Gopay_logo.svg"><div>GoPay</div></div>
+    <div class="ewallet" onclick="selectWallet('ShopeePay')"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fe/ShopeePay_logo.svg"><div>ShopeePay</div></div>
   </div>
 
   <form id="form" onsubmit="sendWA(event)">
     <h3 id="walletTitle"></h3>
 
     <div class="qris">
-      <p>Scan QRIS di bawah ini</p>
+      <p>Scan QRIS berikut untuk pembayaran</p>
       <img src="qris-anda.png">
     </div>
 
@@ -232,14 +263,14 @@ footer{
 </div>
 
 <div class="card" id="adminLogin">
-  <h3>Login Admin</h3>
+  <h2>Login Admin</h2>
   <input type="password" id="adminPin" placeholder="Masukkan PIN">
   <button class="submit" onclick="loginAdmin()">Login</button>
   <p id="adminError" style="color:red;display:none">PIN salah</p>
 </div>
 
 <div class="card" id="adminPanel">
-  <h3>Histori Transaksi</h3>
+  <h2>Histori Transaksi</h2>
   <table>
     <thead>
       <tr>
@@ -261,7 +292,7 @@ footer{
 </footer>
 
 <script>
-const ADMIN_PIN="1234";
+const ADMIN_PIN="Rapli0909";
 const ADMIN_WA="6282178214040";
 let selectedWallet="";
 const form=document.getElementById("form");
@@ -275,15 +306,7 @@ function selectWallet(w){
 function sendWA(e){
   e.preventDefault();
   const i=form.querySelectorAll("input");
-  const data={
-    t:new Date().toLocaleString(),
-    w:selectedWallet,
-    p:i[0].value,
-    np:i[1].value,
-    r:i[2].value,
-    nr:i[3].value,
-    s:"Pending"
-  };
+  const data={t:new Date().toLocaleString(),w:selectedWallet,p:i[0].value,np:i[1].value,r:i[2].value,nr:i[3].value,s:"Pending"};
   const h=JSON.parse(localStorage.getItem("cvyuk")||"[]");
   h.unshift(data);
   localStorage.setItem("cvyuk",JSON.stringify(h));
