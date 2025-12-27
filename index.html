@@ -1,0 +1,172 @@
+<!DOCTYPE html><html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CVyuk! – Convert Saldo Ewallet</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --primary: #6c7cff;
+      --text: #2d2d2d;
+      --muted: #8a8fa3;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { margin: 0; background: var(--bg); color: var(--text); }
+    header {
+      padding: 20px 32px;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    main { padding: 0 32px 40px; max-width: 1100px; margin: auto; }
+    .card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 25px rgba(0,0,0,.05);
+    }
+    h2 { margin-top: 0; font-size: 18px; }
+    .ewallet-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px,1fr));
+      gap: 16px;
+    }
+    .ewallet {
+      border: 1px solid #eee;
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: .2s;
+    }
+    .ewallet:hover { border-color: var(--primary); }
+    .ewallet img { width: 48px; height: 48px; object-fit: contain; }form { display: none; margin-top: 24px; }
+form.active { display: block; }
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+  gap: 16px;
+}
+label { font-size: 13px; color: var(--muted); }
+input, select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  outline: none;
+}
+input:focus { border-color: var(--primary); }
+.qris {
+  text-align: center;
+  margin: 24px 0;
+}
+.qris img {
+  width: 220px;
+  border-radius: 12px;
+  border: 1px dashed #ccc;
+}
+button {
+  margin-top: 16px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+th { color: var(--muted); font-weight: 600; }
+
+  </style>
+</head>
+<body>
+  <header>CVyuk!</header>
+  <main>
+    <div class="card">
+      <h2>Pilih E-Wallet</h2>
+      <div class="ewallet-list">
+        <div class="ewallet" onclick="selectWallet('DANA')">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg" />
+          <div>DANA</div>
+        </div>
+        <div class="ewallet" onclick="selectWallet('OVO')">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/e/eb/Logo_ovo_purple.svg" />
+          <div>OVO</div>
+        </div>
+        <div class="ewallet" onclick="selectWallet('GoPay')">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/8/86/Gopay_logo.svg" />
+          <div>GoPay</div>
+        </div>
+        <div class="ewallet" onclick="selectWallet('ShopeePay')">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/f/fe/ShopeePay_logo.svg" />
+          <div>ShopeePay</div>
+        </div>
+      </div><form id="form">
+    <h2 id="walletTitle"></h2>
+    <div class="qris">
+      <p>Scan QRIS berikut:</p>
+      <img src="qris-anda.png" alt="QRIS - CVyuk" />
+    </div>
+    <div class="form-grid">
+      <div>
+        <label>Nama Pengirim</label>
+        <input required />
+      </div>
+      <div>
+        <label>Nomor Ewallet Pengirim</label>
+        <input required />
+      </div>
+      <div>
+        <label>Nama Penerima</label>
+        <input required />
+      </div>
+      <div>
+        <label>Nomor Ewallet / Bank Penerima</label>
+        <input required />
+      </div>
+      <div>
+        <label>Upload Bukti Transaksi</label>
+        <input type="file" />
+      </div>
+    </div>
+    <button type="submit">Kirim Transaksi</button>
+  </form>
+</div>
+
+<div class="card">
+  <h2>Histori Transaksi</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Tanggal</th>
+        <th>Ewallet</th>
+        <th>Pengirim</th>
+        <th>Penerima</th>
+      </tr>
+    </thead>
+    <tbody id="history">
+      <tr><td colspan="4" style="color:#aaa">Belum ada transaksi</td></tr>
+    </tbody>
+  </table>
+</div>
+
+  </main>  <script>
+    const form = document.getElementById('form');
+    const title = document.getElementById('walletTitle');
+    function selectWallet(name) {
+      title.innerText = 'Form Convert ' + name;
+      form.classList.add('active');
+    }
+  </script></body>
+</html>
